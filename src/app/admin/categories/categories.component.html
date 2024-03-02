@@ -1,0 +1,45 @@
+<div class="grid">
+  <div class="col-9">
+    <div class="grid justify-content-center">
+      <div class="col-8">
+        <p-table
+          [paginator]="true"
+          [rows]="5"
+          [value]="categories$ | async"
+          styleClass="p-datatable-striped shadow-3"
+        >
+          <ng-template pTemplate="header">
+            <tr>
+              <th>title</th>
+              <th>actions</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-item>
+            <tr>
+              <td>{{ item.title }}</td>
+              <td>
+                <p-button
+                  icon="pi pi-trash"
+                  styleClass="p-button-danger"
+                  (onClick)="onDeleteCategory(item.id)"
+                ></p-button>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+
+  </div>
+    <div class="col-3">
+
+  <form [formGroup]="form">
+          <span class="p-float-label">
+            <input pInputText id="title" formControlName="title" />
+            <label for="title">title</label>
+          </span>
+    <button [disabled]="form.invalid||isSubmitting" pButton class="mt-2" (click)="onSubmit()">Submit</button>
+  </form>
+
+    </div>
+</div>

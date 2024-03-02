@@ -1,0 +1,75 @@
+<div class="grid">
+  <div class="col-9">
+    <div class="grid justify-content-center">
+      <div class="col-9">
+        <p-table
+          [paginator]="true"
+          [rows]="3"
+          [value]="authors$ | async"
+          styleClass="p-datatable-striped shadow-3"
+        >
+          <ng-template pTemplate="header">
+            <tr>
+              <th>name</th>
+              <th>position</th>
+              <th>description</th>
+              <th>actions</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-item>
+            <tr>
+              <td>{{ item.name }}</td>
+              <td>{{ item.position }}</td>
+              <td>{{ item.description }}</td>
+
+              <td>
+                <span class="p-buttonset">
+                   <p-button
+                     icon="pi pi-trash"
+                     styleClass="p-button-danger"
+                     (onClick)="onDeleteAuthor(item.id)"
+                   ></p-button>
+
+                <p-button
+                  icon="pi pi-pencil"
+                  styleClass="p-button-warning"
+                  (onClick)="onGetAUthor(item.id)"
+                ></p-button>
+                </span>
+
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+
+  </div>
+  <div class="col-3">
+
+    <form [formGroup]="form">
+          <span class="p-float-label">
+            <input pInputText id="name" formControlName="name"/>
+            <label for="name">title</label>
+          </span>
+      <span class="p-float-label mt-2">
+            <input pInputText id="position" formControlName="position"/>
+            <label for="position">position</label>
+          </span>
+      <span class="p-float-label mt-2">
+<span class="p-float-label">
+    <textarea id="float-input" rows="5" cols="30" formControlName="description" pInputTextarea></textarea>
+    <label for="float-input"></label>
+</span>
+          </span>
+      <button *ngIf="state=='create'" [disabled]="form.invalid||isSubmitting" pButton class="mt-2" (click)="onSubmit()">
+        Create Author
+      </button>
+      <button *ngIf="state=='update'" [disabled]="form.invalid||isSubmitting" pButton class="mt-2 p-butrton-warning"
+              (click)="onUpdateAuthor()">Update Author
+      </button>
+
+    </form>
+
+  </div>
+</div>
