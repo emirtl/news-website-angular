@@ -51,8 +51,6 @@ export class NewsComponent implements OnInit {
       .pipe(concatMap(() => this.newsService.getAll()));
   }
 
-  onSubmit() {}
-
   onUpdate(id) {
     this.router.navigate([`/admin/update-news/${id}`]);
   }

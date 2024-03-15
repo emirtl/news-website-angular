@@ -1,0 +1,12 @@
+<div class="p-toolbar-group-center">
+    <span class="p-input-icon-left">
+      <i class="pi pi-search"></i>
+      <input pInputText placeholder="Search" #searchInput (keydown)="onInputChange($event)"
+      >
+          <button pButton icon="pi pi-search" class="ml-2" (click)="onSearchBtn()"
+                  [disabled]="searchText==''||searchInput.value==''"></button>
+          <button pButton icon="pi pi-trash" class="ml-2 p-button-danger" [disabled]="searchInput.value ==''"
+                  (click)="onDeleteBtn()"></button>
+
+    </span>
+</div>

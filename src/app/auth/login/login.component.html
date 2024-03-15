@@ -1,0 +1,24 @@
+<div class="grid justify-content-center align-content-center">
+  <div class="lg:col-7 md:col-7 xl:col-7 xs:col-12 sm:col-12">
+    <p-card header="Sign In to your White Rabbit news account"
+    >
+      <p>Don't have an account? <a routerLink="/auth/register">Sign Up</a></p>
+      <div class="p-card-body">
+        <form [formGroup]="form">
+
+          <div class="input-group mt-2">
+            <input type="email" placeholder="E_Mail..." pInputText formControlName="email" class="input-text"/>
+          </div>
+
+          <div class="input-group mt-2">
+            <input type="password" placeholder="Password..." pInputText formControlName="password" class="input-text"/>
+
+
+          </div>
+          <button [disabled]="isSubmitting||form.invalid" (click)="onLogedIn()" pButton label="Login"
+                  class="p-button-primary mt-2"></button>
+        </form>
+      </div>
+    </p-card>
+  </div>
+</div>

@@ -1,15 +1,8 @@
 <p-toolbar>
-  <div class="p-toolbar-group-start">
-    <button pButton icon="pi pi-plus" class="mr-2"></button>
-    <button pButton icon="pi pi-print" class="mr-2"></button>
-    <button pButton icon="pi pi-upload"></button>
+  <div class="p-toolbar-group-start image-container">
+
   </div>
-  <div class="p-toolbar-group-center">
-    <span class="p-input-icon-left">
-      <i class="pi pi-search"></i>
-      <input pInputText placeholder="Search" />
-    </span>
-  </div>
+
   <div class="p-toolbar-group-end">
     <button
       pButton
@@ -21,12 +14,33 @@
     </button>
 
     <button
-      #btn
+   
       type="button"
       pButton
       label="Admin"
       (click)="menu.toggle($event)"
+      class="mr-1"
     ></button>
+
     <p-tieredMenu #menu [model]="items" [popup]="true"></p-tieredMenu>
+    <button
+      class="mr-1"
+
+      *ngIf="isLoggedOut$|async"
+      type="button"
+      pButton
+      label="Log In"
+      routerLink="/auth/login"
+    ></button>
+    <button
+      *ngIf="isLoggedIn$|async"
+      type="button"
+      pButton
+      label="Log Out"
+      (click)="onLogOut()"
+
+    ></button>
+
+
   </div>
 </p-toolbar>

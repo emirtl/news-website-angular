@@ -10,6 +10,8 @@ export interface INews {
   images: string;
   author: IAuthor;
   category: ICategory;
-  isBannered: boolean;
+  isFeatured: boolean;
+  numReviews: number;
+  isBreakingNews: boolean;
   createdAt: Date;
 }

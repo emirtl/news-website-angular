@@ -1,0 +1,9 @@
+
+.image-container img {
+  /* Set the width and height to your desired size */
+  width: 15rem;
+  height: 10rem;
+
+  /* Maintain aspect ratio (optional) */
+  object-fit: cover;
+}

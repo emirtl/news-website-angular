@@ -1,6 +1,6 @@
 <div class="news">
   <div class="grid justify-content-center align-content-center">
-    <div class="col-6">
+    <div class="lg:col-6 xl:col-6 xs:col-12 sm:col-12">
       <p-card>
         <form [formGroup]="form">
           <span class="p-float-label">
@@ -54,7 +54,17 @@
           <div class="category mt-3">
             <p-dropdown formControlName="category" [options]="categories$|async" optionValue="id" optionLabel="title"
                         placeholder="Select a category"></p-dropdown>
+          </div>
 
+          <div class="input-switch mt-3">
+            <label for="switch" class="mr-2">Is Featured</label>
+            <p-inputSwitch id="switch" formControlName="isFeatured"></p-inputSwitch>
+          </div>
+
+
+          <div class="input-switch mt-3">
+            <label for="isBreakingNews" class="mr-2">Is BreakingNews</label>
+            <p-inputSwitch id="isBreakingNews" formControlName="isBreakingNews"></p-inputSwitch>
 
           </div>
 

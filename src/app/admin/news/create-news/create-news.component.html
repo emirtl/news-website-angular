@@ -1,6 +1,6 @@
 <div class="news">
   <div class="grid justify-content-center align-content-center">
-    <div class="col-6">
+    <div class="lg:col-6 xl:col-6 xs:col-12 sm:col-12">
       <p-card>
         <form [formGroup]="form">
           <span class="p-float-label">
@@ -33,9 +33,11 @@
           <p-divider></p-divider>
 
           <div class="file mt-3">
+            <h3>Image</h3>
             <button pButton (click)="inputFile.click()">Upload File</button>
             <input type="file" #inputFile style="display: none" class="mt-2" (change)="onPhotoPicked($event)">
           </div>
+
 
           <div class="imagePreview mt-2" *ngIf="imagePreview&&form.get('image').valid">
             <p-image [src]=imagePreview alt="Image" width="250" [preview]="true"></p-image>
@@ -52,9 +54,23 @@
           <p-divider></p-divider>
 
           <div class="category mt-3">
-            <p-dropdown formControlName="category" [options]="categories$|async" optionValue="id" optionLabel="title"
+            <h3>Categories</h3>
+            <p-dropdown multiple formControlName="category" [options]="categories$|async" optionValue="id"
+                        optionLabel="title"
                         placeholder="Select a category"></p-dropdown>
 
+
+          </div>
+
+          <div class="input-switch mt-3">
+            <label for="switch" class="mr-2">Is Featured</label>
+            <p-inputSwitch id="switch" formControlName="isFeatured"></p-inputSwitch>
+
+          </div>
+
+          <div class="input-switch mt-3">
+            <label for="isBreakingNews" class="mr-2">Is BreakingNews</label>
+            <p-inputSwitch id="isBreakingNews" formControlName="isBreakingNews"></p-inputSwitch>
 
           </div>
 

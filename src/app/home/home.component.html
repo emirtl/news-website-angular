@@ -1,1 +1,68 @@
-<p>home works!</p>
+<!--Search-->
+<div class="grid justify-content-center align-items-start">
+  <div class="lg:col-5 xl:col-5 xs:col-12 sm:col-12 md:col-12 ">
+    <app-search-toolbar (searchedNews)="searchedNewsFn($event)"
+                        (resetFilterEvent)="onResetFilterEvent($event)"></app-search-toolbar>
+  </div>
+</div>
+
+
+<ng-container *ngIf="isSearching">
+  <app-news [news]="searchedNews"></app-news>
+</ng-container>
+
+
+<!--BASE-->
+
+<ng-container *ngIf="!isSearching">
+
+  <!--carousel-->
+  <div class="grid justify-content-center align-items-start">
+    <div class="col-12 lg:col-9 md:col-9 xl:col-9">
+
+      <app-carousel [news]="featuredNews$|async"></app-carousel>
+
+
+      <!--selectButton-->
+
+
+      <p-selectButton (onChange)="onSelectBtn($event)"
+                      [options]="categories$|async"
+                      [multiple]="true"
+
+                      optionLabel="title" optionValue="id"
+
+      ></p-selectButton>
+      <p-divider></p-divider>
+      <app-news [news]="news$|async"></app-news>
+    </div>
+
+
+    <!--  MOST READ-->
+    <div class="lg:col-3 xl:col-3 xs:col-12 sm:col-12  p-1">
+      <div class="most-read text-white  p-2" style="background-color: #9c27b0">
+        <h2 class="m-0">Most Read</h2>
+      </div>
+      <p-table [paginator]="true"
+               [rows]="7"
+               [showCurrentPageReport]="true"
+               [value]="mostRead$|async"
+               [tableStyle]="{ 'min-width': '100%' }">
+
+        <ng-template pTemplate="body" let-item>
+          <tr [routerLink]="['/news-page',item.id]" class="news-td">
+            <td>
+              <p class="text-most__read" [routerLink]="['/news-page',item.id]"> {{ item.title }}</p>
+
+            </td>
+
+          </tr>
+
+        </ng-template>
+      </p-table>
+    </div>
+
+  </div>
+
+
+</ng-container>

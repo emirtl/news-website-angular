@@ -22,6 +22,7 @@ import { NewsService } from '../../services/news.service';
 import { CategoryService } from '../../services/category.service';
 import { AuthorsService } from '../../services/authors.service';
 import { INews } from '../../../shared/interfaces/news.interface';
+import { InputSwitchModule } from 'primeng/inputswitch';
 
 @Component({
   selector: 'app-update-news',
@@ -38,6 +39,7 @@ import { INews } from '../../../shared/interfaces/news.interface';
     InputTextModule,
     ReactiveFormsModule,
     NgIf,
+    InputSwitchModule,
   ],
   templateUrl: './update-news.component.html',
   styleUrl: './update-news.component.css',
@@ -60,6 +62,8 @@ export class UpdateNewsComponent implements OnInit {
     image: [],
     author: ['', Validators.required],
     category: ['', Validators.required],
+    isFeatured: [false, Validators.required],
+    isBreakingNews: [false, Validators.required],
   });
 
   constructor(
@@ -85,6 +89,8 @@ export class UpdateNewsComponent implements OnInit {
           description: news.description,
           image: news.image,
           richDescription: news.richDescription,
+          isFeatured: news.isFeatured,
+          isBreakingNews: news.isBreakingNews,
         });
       },
     });

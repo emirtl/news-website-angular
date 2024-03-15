@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, shareReplay } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
@@ -13,26 +13,51 @@ export class NewsService {
 
   constructor(private http: HttpClient) {}
 
-  getAll(): Observable<INews[]> {
-    return this.http.get<INews[]>(`${this.NEWS_URL}/getAll`).pipe(
-      map((res) => {
-        return res['news'].map((news) => {
-          return {
-            id: news.id,
-            title: news.title,
-            description: news.description,
-            richDescription: news.richDescription,
-            image: news.image,
-            images: news.images,
-            author: news.author,
-            category: news.category,
-            createdAt: news.createdAt,
-            isBannered: news.isBannered,
-          };
-        });
-      }),
-      shareReplay(),
-    );
+  getAll(
+    isFeatured?: boolean,
+    categories?: string[],
+    minNumViews?: number,
+    searchText?: string,
+  ): Observable<INews[]> {
+    let params = new HttpParams();
+    if (isFeatured) {
+      params = params.append('isFeatured', true);
+    }
+    if (categories && categories.length > 0) {
+      params = params.append('categories', categories.join(','));
+    }
+    if (minNumViews) {
+      params = params.append('minNumViews', minNumViews);
+    }
+    if (searchText) {
+      params = params.append('$search', searchText);
+      console.log(searchText);
+    }
+    return this.http
+      .get<INews[]>(`${this.NEWS_URL}/getAll`, {
+        params,
+      })
+      .pipe(
+        map((res) => {
+          return res['news'].map((news) => {
+            return {
+              id: news.id,
+              title: news.title,
+              description: news.description,
+              richDescription: news.richDescription,
+              image: news.image,
+              images: news.images,
+              author: news.author,
+              category: news.category,
+              createdAt: news.createdAt,
+              numReviews: news.numReviews,
+              isFeatured: news.isFeatured,
+              isBreakingNews: news.isBreakingNews,
+            };
+          });
+        }),
+        shareReplay(),
+      );
   }
 
   get(id: string): Observable<INews> {
@@ -48,7 +73,9 @@ export class NewsService {
         author: res['news'].author,
         category: res['news'].category,
         createdAt: res['news'].createdAt,
-        isBannered: res['news'].isBannered,
+        isFeatured: res['news'].isFeatured,
+        numReviews: res['news'].numReviews,
+        isBreakingNews: res['news'].isBreakingNews,
       })),
       // (Optional) Share the observable to avoid redundant requests
       shareReplay(),

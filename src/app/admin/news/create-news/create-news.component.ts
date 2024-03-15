@@ -16,6 +16,7 @@ import { DividerModule } from 'primeng/divider';
 import { EditorModule } from '@tinymce/tinymce-angular';
 import { ImageModule } from 'primeng/image';
 import { NewsService } from '../../services/news.service';
+import { InputSwitchModule } from 'primeng/inputswitch';
 
 @Component({
   selector: 'app-create-news',
@@ -33,6 +34,7 @@ import { NewsService } from '../../services/news.service';
     EditorModule,
     ImageModule,
     NgIf,
+    InputSwitchModule,
   ],
   templateUrl: './create-news.component.html',
   styleUrl: './create-news.component.css',
@@ -50,7 +52,10 @@ export class CreateNewsComponent implements OnInit {
     image: [],
     author: [Validators.required],
     category: [Validators.required],
+    isFeatured: [false, Validators.required],
+    isBreakingNews: [false, Validators.required],
   });
+  selectedCategories: any;
 
   constructor(
     private fb: FormBuilder,

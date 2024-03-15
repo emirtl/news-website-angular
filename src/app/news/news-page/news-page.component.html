@@ -1,0 +1,17 @@
+<div class="grid justify-content-center align-content-center">
+  <div class="lg:col-8 xl:col-8 xs:col-12 sm:col-12">
+    <p-card class='p-card-single__page' [header]="(news$|async)?.title" [style]="{ width: '100%' }">
+      <ng-template pTemplate="header">
+        <img [src]="(news$|async)?.image" [alt]="(news$|async)?.title" class="p-card-image"/>
+      </ng-template>
+      <div class="p-card-body">
+        <div [innerHTML]="(news$|async)?.description"></div>
+        <div [innerHTML]="(news$|async)?.richDescription"></div>
+        <p class="p-text-muted"> {{ (news$|async)?.createdAt | date:'short' }}</p>
+
+      </div>
+
+    </p-card>
+
+  </div>
+</div>

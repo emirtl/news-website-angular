@@ -1,0 +1,8 @@
+.news-td {
+  cursor: pointer;
+}
+
+
+.news-td:hover {
+  color: #949494;
+}

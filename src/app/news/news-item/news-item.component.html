@@ -1,0 +1,27 @@
+<!--<a style="cursor: pointer;text-decoration: none" [routerLink]="['/news-page',news.id]">-->
+
+
+<!--  <div class="news">-->
+<!--    <div class="image-container">-->
+<!--      <p-image class="img" [src]="news.image" [alt]="news.title"-->
+<!--               width="250" height="150"></p-image>-->
+
+<!--    </div>-->
+<!--    <div class="news-info">-->
+<!--      <h3>{{news.title}}</h3>-->
+<!--    </div>-->
+<!--  </div>-->
+
+<!--</a>-->
+<a style="cursor: pointer;text-decoration: none" [routerLink]="['/news-page', news.id]">
+  <div class="news p-d-flex p-flex-wrap">
+    <div *ngIf="fileFormat==='jpg'||fileFormat==='png'||fileFormat==='gif'"
+         class="image-container p-flex p-flex-column">
+      <p-image class="img" [src]="news.image" [alt]="news.title" width="100%"></p-image>
+    </div>
+
+
+    <div class="news-info p-flex p-flex-column"><h3>{{ news.title }}</h3>
+    </div>
+  </div>
+</a>

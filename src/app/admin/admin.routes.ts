@@ -4,6 +4,7 @@ import { NewsComponent } from './news/news.component';
 import { AuthorsComponent } from './authors/authors.component';
 import { CreateNewsComponent } from './news/create-news/create-news.component';
 import { UpdateNewsComponent } from './news/update-news/update-news.component';
+import { UsersComponent } from './users/users.component';
 
 export const adminRoutes: Routes = [
   {
@@ -25,5 +26,9 @@ export const adminRoutes: Routes = [
   {
     path: 'update-news/:id',
     component: UpdateNewsComponent,
+  },
+  {
+    path: 'users',
+    component: UsersComponent,
   },
 ];

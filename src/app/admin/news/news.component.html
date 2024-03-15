@@ -1,7 +1,9 @@
 <div class="grid justify-content-center">
-  <div class="col-8">
+  <div class="lg:col-8 xl:col-8 sm:col-12 xs:col-12">
     <button class="mb-2" routerLink="/admin/create-news" pButton>Create News</button>
     <p-table
+      [tableStyle]="{'min-width': '23rem'}"
+      responsiveLayout="stack"
       [paginator]="true"
       [rows]="5"
       [value]="news$ | async"
@@ -20,16 +22,27 @@
       <ng-template pTemplate="body" let-item>
         <tr>
           <td>
+            <span class="p-column-title">image</span>
             <p-image [src]=item.image [alt]=item.title width="50" [preview]="true"></p-image>
 
           </td>
-          <td>{{ item.title }}</td>
-          <td>{{ item.category.title }}</td>
-          <td>{{ item.author.name }}</td>
-          <td>{{ item.createdAt|date:'short' }}</td>
+          <td>
+            <span class="p-column-title">title: </span>
+
+            <p style="font-size: 0.9rem;margin-left: 0.4rem">{{ item.title }}</p></td>
+          <td>
+            <span class="p-column-title">category</span>
+            {{ item.category.title }}</td>
+          <td>
+            <span class="p-column-title">author</span>
+            {{ item.author.name }}</td>
+          <td>
+            <span class="p-column-title">created at</span>
+            {{ item.createdAt|date:'short' }}</td>
 
           <td>
-
+            <span class="p-column-title">actions</span>
+            <span class="p-buttonset">
             <p-button
               icon="pi pi-trash"
               styleClass="p-button-danger"
@@ -41,6 +54,7 @@
               styleClass="p-button-warning"
               (onClick)="onUpdate(item.id)"
             ></p-button>
+     </span>
           </td>
 
         </tr>
