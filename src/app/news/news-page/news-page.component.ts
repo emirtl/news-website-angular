@@ -3,13 +3,13 @@ import { NewsService } from '../../admin/services/news.service';
 import { Observable } from 'rxjs';
 import { INews } from '../../shared/interfaces/news.interface';
 import { ActivatedRoute } from '@angular/router';
-import { AsyncPipe, DatePipe } from '@angular/common';
+import { AsyncPipe, DatePipe, NgIf, TitleCasePipe } from '@angular/common';
 import { CardModule } from 'primeng/card';
 
 @Component({
   selector: 'app-news-page',
   standalone: true,
-  imports: [AsyncPipe, DatePipe, CardModule],
+  imports: [AsyncPipe, DatePipe, CardModule, NgIf, TitleCasePipe],
   templateUrl: './news-page.component.html',
   styleUrl: './news-page.component.css',
 })

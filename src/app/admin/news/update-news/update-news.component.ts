@@ -53,6 +53,8 @@ export class UpdateNewsComponent implements OnInit {
 
   imagePreview: string | ArrayBuffer;
 
+  coverImagePreview: string | ArrayBuffer;
+
   newsId: string;
 
   form = this.fb.group({
@@ -64,6 +66,7 @@ export class UpdateNewsComponent implements OnInit {
     category: ['', Validators.required],
     isFeatured: [false, Validators.required],
     isBreakingNews: [false, Validators.required],
+    coverImage: [],
   });
 
   constructor(
@@ -81,16 +84,22 @@ export class UpdateNewsComponent implements OnInit {
     this.newsId = this.activatedRoute.snapshot.params['id'];
     this.newsService.get(this.newsId).subscribe({
       next: (news) => {
-        this.imagePreview = news.image;
+        if (news.image) {
+          this.imagePreview = news.image;
+        }
+        if (news.coverImage) {
+          this.coverImagePreview = news.coverImage;
+        }
         this.form.setValue({
           title: news.title,
           author: news.author.id,
           category: news.category.id,
           description: news.description,
-          image: news.image,
+          image: news.image ? news.image : null,
           richDescription: news.richDescription,
           isFeatured: news.isFeatured,
           isBreakingNews: news.isBreakingNews,
+          coverImage: news.coverImage,
         });
       },
     });
@@ -113,11 +122,39 @@ export class UpdateNewsComponent implements OnInit {
 
   onPhotoPicked($event: Event) {
     const file = ($event.target as HTMLInputElement).files![0];
+    if (
+      file.name.split('.')[1] === 'jpg' ||
+      file.name.split('.')[1] === 'jpeg' ||
+      file.name.split('.')[1] === 'gif' ||
+      file.name.split('.')[1] === 'png'
+    ) {
+      console.log('file format is not video');
+      return;
+    }
     this.form.patchValue({ image: file });
     this.form.get('image').updateValueAndValidity();
     const reader = new FileReader();
     reader.onload = () => {
       this.imagePreview = reader.result;
+    };
+    reader.readAsDataURL(file);
+  }
+
+  onCoverPicked($event: Event) {
+    const file = ($event.target as HTMLInputElement).files![0];
+    if (
+      file.name.split('.')[1] === 'mp4' ||
+      file.name.split('.')[1] === 'webm' ||
+      file.name.split('.')[1] === 'mov'
+    ) {
+      console.log('file format is not an image');
+      return;
+    }
+    this.form.patchValue({ coverImage: file });
+    this.form.get('coverImage').updateValueAndValidity();
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.coverImagePreview = reader.result;
     };
     reader.readAsDataURL(file);
   }

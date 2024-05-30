@@ -4,7 +4,6 @@ import { BehaviorSubject, Observable, shareReplay } from 'rxjs';
 import { IUser } from '../../shared/interfaces/user.interface';
 import { map, tap } from 'rxjs/operators';
 import { isPlatformServer } from '@angular/common';
-import { Router } from '@angular/router';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -16,7 +15,6 @@ export class AuthService {
   user$: Observable<IUser> = this.userSubject.asObservable();
   isLoggedIn$: Observable<boolean>;
   isLoggedOut$: Observable<boolean>;
-  currentUser: IUser;
 
   constructor(
     private http: HttpClient,
@@ -25,9 +23,16 @@ export class AuthService {
     this.isLoggedIn$ = this.user$.pipe(map((user) => !!user));
     this.isLoggedOut$ = this.isLoggedIn$.pipe(map((isLoggedIn) => !isLoggedIn));
 
-    const user = this.getUserFromLocalStorage();
+    const user: IUser = JSON.parse(this.getUserFromLocalStorage());
+
     if (user) {
-      this.userSubject.next(JSON.parse(user));
+      this.userSubject.next(user);
+      if (user && user.admin) {
+        this.isAdminSubject.next(true);
+      }
+    } else {
+      this.userSubject.next(null);
+      this.isAdminSubject.next(false);
     }
   }
 
@@ -49,13 +54,15 @@ export class AuthService {
     return this.http
       .post<IUser>(`${this.AUTH_URL}/login`, loginRequestInterface)
       .pipe(
+        map((res) => {
+          return res['user'];
+        }),
         tap((user) => {
-          this.currentUser = user['user'];
-          if (user['user'].admin === true) {
+          this.userSubject.next(user);
+          if (user.admin) {
             this.isAdminSubject.next(true);
           }
           localStorage.setItem('user', JSON.stringify(user));
-          this.userSubject.next(user);
         }),
         shareReplay(),
       );
@@ -64,7 +71,6 @@ export class AuthService {
   logOut() {
     this.userSubject.next(null);
     this.isAdminSubject.next(false);
-
     localStorage.removeItem('user');
   }
 }

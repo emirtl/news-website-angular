@@ -33,15 +33,29 @@
           <p-divider></p-divider>
 
           <div class="file mt-3">
-            <h3>Image</h3>
+            <h3>Video File</h3>
             <button pButton (click)="inputFile.click()">Upload File</button>
             <input type="file" #inputFile style="display: none" class="mt-2" (change)="onPhotoPicked($event)">
           </div>
 
+          <video class="mt-2" *ngIf="imagePreview " width="220" height="140" controls>
+            <source [src]="imagePreview" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
 
-          <div class="imagePreview mt-2" *ngIf="imagePreview&&form.get('image').valid">
-            <p-image [src]=imagePreview alt="Image" width="250" [preview]="true"></p-image>
+
+          <div class="file mt-3">
+            <h3>Cover Image</h3>
+            <button pButton (click)="inputCoverImage.click()">Upload Cover Image</button>
+            <input type="file" #inputCoverImage style="display: none" class="mt-2" (change)="onCoverPicked($event)">
           </div>
+
+
+          <div class="imagePreview mt-2" *ngIf="coverImagePreview&&form.get('coverImage').valid">
+            <p-image [src]=coverImagePreview [alt]="form.controls['title']?.value" width="250"
+                     [preview]="true"></p-image>
+          </div>
+
 
           <p-divider></p-divider>
 
@@ -71,7 +85,6 @@
           <div class="input-switch mt-3">
             <label for="isBreakingNews" class="mr-2">Is BreakingNews</label>
             <p-inputSwitch id="isBreakingNews" formControlName="isBreakingNews"></p-inputSwitch>
-
           </div>
 
 

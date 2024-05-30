@@ -1,12 +1,13 @@
-import { Component, Input, OnInit, Output } from '@angular/core';
+import { Component, input, Input, OnInit, Output } from '@angular/core';
 import { INews } from '../../shared/interfaces/news.interface';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import { DividerModule } from 'primeng/divider';
 import { RouterLink } from '@angular/router';
 import { BadgeModule } from 'primeng/badge';
-import { NgForOf, NgIf } from '@angular/common';
+import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
 import { ImageModule } from 'primeng/image';
+import { style } from '@angular/animations';
 
 @Component({
   selector: 'app-news-item',
@@ -20,17 +21,24 @@ import { ImageModule } from 'primeng/image';
     NgForOf,
     ImageModule,
     NgIf,
+    AsyncPipe,
   ],
   templateUrl: './news-item.component.html',
   styleUrl: './news-item.component.css',
 })
 export class NewsItemComponent implements OnInit {
-  @Input() news: INews;
   fileFormat: string;
+
+  @Input() news: INews;
+  @Input() isBreakingNews: boolean;
 
   constructor() {}
 
   ngOnInit(): void {
-    this.fileFormat = this.news.image.split('.')[1];
+    if (this.news.image) {
+      this.fileFormat = this.news.image.split('.')[1];
+    }
   }
+
+  protected readonly style = style;
 }

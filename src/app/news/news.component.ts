@@ -9,6 +9,7 @@ import { SharedModule } from 'primeng/api';
 import { TableModule } from 'primeng/table';
 import { ImageModule } from 'primeng/image';
 import { RouterLink } from '@angular/router';
+import { DataViewModule } from 'primeng/dataview';
 
 @Component({
   selector: 'app-news',
@@ -21,19 +22,17 @@ import { RouterLink } from '@angular/router';
     TableModule,
     ImageModule,
     RouterLink,
+    DataViewModule,
   ],
   templateUrl: './news.component.html',
   styleUrl: './news.component.css',
 })
 export class NewsComponent implements OnInit {
-  news$: Observable<INews[]>;
-
-  constructor(private newsService: NewsService) {}
+  constructor() {}
 
   @Input() news: INews[];
 
-  ngOnInit(): void {
-    // console.log(this.category);
-    // this.news$ = this.newsService.getAll(false, this.category);
-  }
+  @Input() isBreakingNews: boolean;
+
+  ngOnInit(): void {}
 }

@@ -30,8 +30,8 @@ import { IUser } from '../../shared/interfaces/user.interface';
 })
 export class LoginComponent {
   form = this.fb.group({
-    email: ['tlemir55@gmail.com', Validators.required],
-    password: ['Narawa@@@@001', Validators.required],
+    email: ['', Validators.required],
+    password: ['', Validators.required],
   });
   isSubmitting = false;
 

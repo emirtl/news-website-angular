@@ -1,0 +1,11 @@
+<p-card header="{{opinion.title}}" subheader="Card Subheader"
+        class="cursor-pointer hover:underline"
+        [style]="{ height: '480px' }"
+
+        [routerLink]="['/opinion-page',opinion.id]">
+  <ng-template pTemplate="header">
+    <img *ngIf="opinion.coverImage" [src]="opinion.coverImage" [alt]="opinion.title"/>
+  </ng-template>
+</p-card>
+
+

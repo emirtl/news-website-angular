@@ -1,19 +1,36 @@
 /* You can add global styles to this file, and also import other style files */
 @import "primeicons/primeicons.css";
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+/*primeng/resources/themes/md-dark-indigo/theme.css*/
 
+body {
+  font-family: "Roboto", sans-serif;
+  font-weight: 100;
+  font-style: normal;
+}
+
+a {
+  color: #013fb6;
+  text-decoration: underline;
+}
+
+/*.a-card {*/
+/*  color: black;*/
+/*  text-decoration: none;*/
+/*}*/
 
 .container {
   margin-left: auto;
   margin-right: auto;
 }
 
-/*.container {*/
-/*  display: flex;*/
-/*  flex-direction: column; !* Adjust for row or other layouts *!*/
-/*  max-width: 800px; !* Set your desired max-width *!*/
-/*  margin: 0 auto; !* Center the container horizontally *!*/
-/*  padding: 1rem; !* Add some padding *!*/
+/*.news-section {*/
+/*  background-color: #e3440f;*/
+/*  padding: 0.5rem;*/
+/*  margin: 0;*/
+/*  color: white;*/
 /*}*/
+
 
 @media only screen and (max-width: 767px) {
   .container {
@@ -46,18 +63,15 @@
 }
 
 
-/*.p-card .p-card-title {*/
-/*  color: #010141;*/
-
-/*}*/
-
-
 p-password .p-password-input {
   width: 100% !important;
 
 }
 
-.p-card {
-  background: white !important;
-  color: #00003f;
-}
+/*.section-featured {*/
+/*  background-color: #9A0511;*/
+/*  border-radius: 0.3rem;*/
+/*  padding: 0.3rem;*/
+/*}*/
+
+

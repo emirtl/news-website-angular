@@ -1,0 +1,28 @@
+.live-update__animation {
+  width: 20px; /* Adjust width as needed */
+  height: 20px; /* Adjust height as needed */
+  background-color: white;
+  border-radius: 50%; /* Creates a circle */
+  animation: pulsate 1s ease-in-out infinite alternate;
+}
+
+@keyframes pulsate {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+a {
+  color: #2c1fdf !important;
+
+}
+
+.border-condition {
+  border: 6px solid #dcd909 !important;
+}

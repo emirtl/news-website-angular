@@ -1,0 +1,72 @@
+<div class="news">
+  <div class="grid justify-content-center align-content-center">
+    <div class="lg:col-6 xl:col-6 xs:col-12 sm:col-12">
+      <p-card>
+        <form [formGroup]="form">
+          <span class="p-float-label">
+            <input pInputText id="title" formControlName="title"/>
+            <label for="title">Title</label>
+          </span>
+
+          <p-divider></p-divider>
+
+          <div class="description">
+            <h3>Description</h3>
+            <editor
+              [init]="{ plugins: 'lists link image table code help wordcount' }"
+              apiKey="tptzzifdqhbljxdvka1k9lcmin7jyign9xc1pd95jtkjmqy1"
+              formControlName="description"
+            ></editor>
+          </div>
+
+          <p-divider></p-divider>
+
+          <div class="description">
+            <h3>rich description</h3>
+            <editor
+              [init]="{ plugins: 'lists link image table code help wordcount' }"
+              apiKey="tptzzifdqhbljxdvka1k9lcmin7jyign9xc1pd95jtkjmqy1"
+              formControlName="richDescription"
+            ></editor>
+          </div>
+
+          <p-divider></p-divider>
+
+
+          <div class="file mt-3">
+            <h3>Cover Image</h3>
+            <button pButton (click)="inputCoverImage.click()">Upload Cover Image</button>
+            <input type="file" #inputCoverImage style="display: none" class="mt-2" (change)="onCoverPicked($event)">
+          </div>
+
+
+          <div class="imagePreview mt-2" *ngIf="coverImagePreview&&form.get('coverImage').valid">
+            <p-image [src]=coverImagePreview [alt]="form.controls['title']?.value" width="250"
+                     [preview]="true"></p-image>
+          </div>
+
+
+          <p-divider></p-divider>
+
+          <div class="author mt-3">
+            <p-dropdown formControlName="author" [options]="authors$|async" optionValue="id" optionLabel="name"
+                        placeholder="Select an author"></p-dropdown>
+
+          </div>
+
+          <p-divider></p-divider>
+
+
+          <div class="footer mt-3">
+            <button pButton class="p-button-success"
+                    (click)="onSubmit()"
+                    [disabled]="isSubmitting ||!form.valid"
+            >Submit
+            </button>
+          </div>
+        </form>
+      </p-card>
+    </div>
+  </div>
+</div>
+

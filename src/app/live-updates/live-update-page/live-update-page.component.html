@@ -1,0 +1,54 @@
+<div class="grid justify-content-center">
+  <div class="col-12 md:col-8 lg:col-8">
+    <div style="max-width: 60rem;margin: auto;word-spacing: 0.1rem">
+
+      <div class="live-update-page" style="margin: auto;word-spacing: 0.1rem">
+        <div class="info bg-red-700 text-white p-2">
+          <div class="live-update__animation  mb-0  inline-block"></div>
+          <h2 class="text-white inline-block ml-2 mt-1 lb-0">Live Updates</h2>
+        </div>
+        <div class="bg-red-800 w-full p-2">
+          <h2 class="line-height-2 mt-0 text-left text-white">{{(liveUpdate$|async)?.coverTitle}}
+          </h2>
+        </div>
+      </div>
+
+
+      <div class="scroller mt-2" *ngIf="liveUpdateItems&&liveUpdateItems.length>0">
+        <p-scroller [items]="liveUpdateItems" [itemSize]="liveUpdateItems.length" scrollHeight="100px"
+                    styleClass="border-1 surface-border"
+                    [style]="{'width': '60rem', }">
+          <ng-template pTemplate="item" let-item>
+            <div class=" flex align-items-center p-2"
+                 style="height: 25px;">
+              <p class="navigate m-0 font-bold  text-black hover:underline cursor-pointer"
+                 [ngClass]="item.isImportant?'text-red-600':''" (click)="scrolToItem(item.id)"
+              >{{ item.liveUpdateTitle }}</p>
+            </div>
+          </ng-template>
+        </p-scroller>
+      </div>
+
+      <div class="mt-2 text-center" [id]="item.id" *ngFor="let item of liveUpdateItems">
+
+        <div class="liveUpdateItem-info p-3 line-height-2 text-left border-blue-500 bg-white text-black-alpha-90"
+
+             [ngClass]="{'border-condition': item.isImportant}"><h2 class="font-bold m-0">{{item.liveUpdateTitle}}</h2>
+          <p class="font-bold text-black-alpha-60">{{item.createdAt|date:'short'}}</p>
+          <p-image *ngIf="item.liveUpdateImage && item.liveUpdateImage.length>0" [src]="item.liveUpdateImage"
+                   [alt]="item.liveUpdateTitle" width="350"></p-image>
+          <h4 [innerHTML]="item.liveUpdateDescription"></h4>
+          <h4 [innerHTML]="item.liveUpdateRichDescription"></h4>
+        </div>
+
+        <div class="actions text-left border-2 mt-1 p-2" *ngIf="isADmin$|async">
+          <button pButton class="p-button-danger" (click)="onDeleteLiveUpdateItem(item.id)">
+            Delete
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>

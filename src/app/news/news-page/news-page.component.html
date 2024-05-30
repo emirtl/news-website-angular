@@ -1,13 +1,31 @@
-<div class="grid justify-content-center align-content-center">
-  <div class="lg:col-8 xl:col-8 xs:col-12 sm:col-12">
-    <p-card class='p-card-single__page' [header]="(news$|async)?.title" [style]="{ width: '100%' }">
+<div class="grid justify-content-center">
+
+  <div class="col-12 md:col-8 lg:col-8">
+    <p-card class='p-card-single__page' [style]="{ width: '100%' }">
       <ng-template pTemplate="header">
-        <img [src]="(news$|async)?.image" [alt]="(news$|async)?.title" class="p-card-image"/>
+        <video *ngIf="(news$|async)?.image" width="100%" controls>
+          <source [src]="(news$|async)?.image" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <img *ngIf="!(news$|async)?.image" [src]="(news$|async)?.coverImage" [alt]="(news$|async)?.title"
+             class="p-card-image"/>
       </ng-template>
-      <div class="p-card-body">
+      <div class="p-card-body m-0">
+        <h2 class="m-0">{{(news$|async)?.title}}</h2>
+
         <div [innerHTML]="(news$|async)?.description"></div>
+        <ng-template pTemplate="header">
+
+
+          <img [src]="(news$|async)?.coverImage" [alt]="(news$|async)?.title" class="p-card-image"/>
+        </ng-template>
+
         <div [innerHTML]="(news$|async)?.richDescription"></div>
-        <p class="p-text-muted"> {{ (news$|async)?.createdAt | date:'short' }}</p>
+
+        <div class="p-card-footer mt-5">
+          <span class="p-text-muted block "> {{ (news$|async)?.createdAt | date:'short' }}</span>
+          <span class="p-text-muted block mt-2">by : {{ (news$|async)?.author.name|titlecase }}</span>
+        </div>
 
       </div>
 
@@ -15,3 +33,4 @@
 
   </div>
 </div>
+

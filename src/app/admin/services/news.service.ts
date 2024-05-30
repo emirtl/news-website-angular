@@ -18,11 +18,13 @@ export class NewsService {
     categories?: string[],
     minNumViews?: number,
     searchText?: string,
+    isBreaking?: boolean,
   ): Observable<INews[]> {
     let params = new HttpParams();
     if (isFeatured) {
       params = params.append('isFeatured', true);
     }
+
     if (categories && categories.length > 0) {
       params = params.append('categories', categories.join(','));
     }
@@ -32,6 +34,9 @@ export class NewsService {
     if (searchText) {
       params = params.append('$search', searchText);
       console.log(searchText);
+    }
+    if (isBreaking) {
+      params = params.append('isBreaking', true);
     }
     return this.http
       .get<INews[]>(`${this.NEWS_URL}/getAll`, {
@@ -53,6 +58,7 @@ export class NewsService {
               numReviews: news.numReviews,
               isFeatured: news.isFeatured,
               isBreakingNews: news.isBreakingNews,
+              coverImage: news.coverImage,
             };
           });
         }),
@@ -76,6 +82,7 @@ export class NewsService {
         isFeatured: res['news'].isFeatured,
         numReviews: res['news'].numReviews,
         isBreakingNews: res['news'].isBreakingNews,
+        coverImage: res['news'].coverImage,
       })),
       // (Optional) Share the observable to avoid redundant requests
       shareReplay(),

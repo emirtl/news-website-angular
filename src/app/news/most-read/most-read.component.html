@@ -1,0 +1,7 @@
+<div class="grid justify-content-center align-items-start">
+  <div class="col-12 border-2 m-0 mt-1 hover:bg-black-alpha-90 hover:text-white cursor-pointer"
+       *ngFor="let item of mostRead$|async">
+    <p class="font-semibold m-0 "
+       [routerLink]="['news-page',item.id]">{{item.title}}</p>
+  </div>
+</div>

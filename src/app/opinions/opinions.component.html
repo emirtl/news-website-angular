@@ -1,0 +1,6 @@
+<div class="grid justify-content-start align-items-start">
+  <div [ngClass]="(opinions$|async)?.length>=4?'col-12 md:col-6 lg:col-4 xl:col-3':'col-12 md:col-6 lg:col-4 xl:col-4'"
+       *ngFor="let item of opinions$|async">
+    <app-opinion-item [opinion]="item"></app-opinion-item>
+  </div>
+</div>

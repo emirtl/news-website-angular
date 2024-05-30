@@ -1,0 +1,20 @@
+<div
+  class="live-updates border-2  p-2 hover:bg-black-alpha-90 mt-1 text-black-alpha-90  hover:text-white cursor-pointer"
+
+  *ngFor="let item of liveUpdate$|async"
+  [routerLink]="['/live-update-page',item.id]">
+
+  <p-image
+
+    *ngIf="item.mainCoverImage"
+    [src]="item.mainCoverImage" width="300" class="block text-center"></p-image>
+
+
+  <div class="live-update__animation mt-2 mb-0 text-white-alpha-60 inline-block"></div>
+  <h4 class="inline-block text-red-700 ml-2 m-0">Live Updates</h4>
+  <h4 class="m-0 mt-1 cursor-pointer hover:underline hover:text-white"
+      [routerLink]="['/live-update-page',item.id]">{{item.coverTitle}}</h4>
+
+</div>
+
+

@@ -7,6 +7,7 @@ import { ButtonModule } from 'primeng/button';
 import { AuthService } from '../services/auth.service';
 import { IUser } from '../../shared/interfaces/user.interface';
 import { RouterLink } from '@angular/router';
+import { DockModule } from 'primeng/dock';
 
 @Component({
   selector: 'app-register',
@@ -18,6 +19,7 @@ import { RouterLink } from '@angular/router';
     ReactiveFormsModule,
     ButtonModule,
     RouterLink,
+    DockModule,
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css',
@@ -39,21 +41,21 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {}
 
   onRegisterUser() {
-    this.isSubmitting = true;
-    if (this.form.value.repeatPassword !== this.form.value.password) {
-      return this.form.reset();
-    }
-    const reqRegisterInterface: Partial<IUser> = {
-      ...this.form.value,
-    };
-    this.authService.register(reqRegisterInterface).subscribe({
-      next: () => {
-        this.form.reset();
-        this.isSubmitting = false;
-      },
-      error: () => {
-        this.isSubmitting = false;
-      },
-    });
+    // this.isSubmitting = true;
+    // if (this.form.value.repeatPassword !== this.form.value.password) {
+    //   return this.form.reset();
+    // }
+    // const reqRegisterInterface: Partial<IUser> = {
+    //   ...this.form.value,
+    // };
+    // this.authService.register(reqRegisterInterface).subscribe({
+    //   next: () => {
+    //     this.form.reset();
+    //     this.isSubmitting = false;
+    //   },
+    //   error: () => {
+    //     this.isSubmitting = false;
+    //   },
+    // });
   }
 }

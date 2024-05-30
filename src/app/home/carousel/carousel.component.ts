@@ -6,6 +6,8 @@ import { TableModule } from 'primeng/table';
 import { ImageModule } from 'primeng/image';
 import { CardModule } from 'primeng/card';
 import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
+import { DataViewModule } from 'primeng/dataview';
 
 @Component({
   selector: 'app-carousel',
@@ -17,6 +19,8 @@ import { FormsModule } from '@angular/forms';
     ImageModule,
     CardModule,
     FormsModule,
+    RouterLink,
+    DataViewModule,
   ],
   templateUrl: './carousel.component.html',
   styleUrl: './carousel.component.css',

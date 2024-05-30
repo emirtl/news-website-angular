@@ -1,0 +1,31 @@
+<div class="grid justify-content-center align-content-center">
+
+  <div class="lg:col-8 xl:col-8 xs:col-12 sm:col-12">
+    <p-card class='p-card-single__page' [header]="(opinion$|async)?.title" [style]="{ width: '100%' }">
+      <ng-template pTemplate="header">
+
+        <p-image *ngIf="(opinion$|async)?.coverImage" [src]="(opinion$|async)?.coverImage"
+                 [alt]="(opinion$|async)?.title"
+                 class="p-card-image"/>
+      </ng-template>
+      <div class="p-card-body">
+        <div [innerHTML]="(opinion$|async)?.description"></div>
+        <ng-template pTemplate="header">
+
+
+          <img [src]="(opinion$|async)?.coverImage" [alt]="(opinion$|async)?.title" class="p-card-image"/>
+        </ng-template>
+        <div [innerHTML]="(opinion$|async)?.richDescription"></div>
+
+        <div class="p-card-footer mt-5">
+          <span class="p-text-muted block "> {{ (opinion$|async)?.createdAt | date:'short' }}</span>
+          <span class="p-text-muted block mt-2">by : {{ (opinion$|async)?.author.name|titlecase }}</span>
+        </div>
+
+      </div>
+
+    </p-card>
+
+  </div>
+</div>
+

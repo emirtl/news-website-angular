@@ -1,0 +1,46 @@
+<div class="news">
+  <div class="grid justify-content-center align-content-center">
+    <div class="lg:col-6 xl:col-6 xs:col-12 sm:col-12">
+      <p-card header="Create Live Update">
+        <form [formGroup]="form">
+
+
+
+          <span class="p-float-label">
+            <input pInputText id="title" formControlName="coverTitle"/>
+            <label for="title">Cover Title</label>
+          </span>
+
+
+          <p-divider></p-divider>
+
+
+          <div class="file mt-3">
+            <h3>Cover Image</h3>
+            <button pButton (click)="inputCoverImage.click()">Upload Cover Image</button>
+            <input type="file" #inputCoverImage style="display: none" class="mt-2" (change)="onCoverPicked($event)">
+          </div>
+
+
+          <div class="imagePreview mt-2" *ngIf="mainCoverImagePreview&&form.get('mainCoverImage').valid">
+            <p-image [src]=mainCoverImagePreview [alt]="form.controls['title']?.value" width="250"
+                     [preview]="true"></p-image>
+          </div>
+
+
+          <p-divider></p-divider>
+
+
+          <div class="footer mt-3">
+            <button pButton class="p-button-success"
+                    (click)="onSubmit()"
+                    [disabled]="isSubmitting ||!form.valid"
+            >Submit
+            </button>
+          </div>
+        </form>
+      </p-card>
+    </div>
+  </div>
+</div>
+

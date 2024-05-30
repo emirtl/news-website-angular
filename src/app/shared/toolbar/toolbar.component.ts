@@ -11,6 +11,8 @@ import { AsyncPipe, NgIf } from '@angular/common';
 import { INews } from '../interfaces/news.interface';
 import { NewsService } from '../../admin/services/news.service';
 import { log } from 'util';
+import { ImageModule } from 'primeng/image';
+import { IUser } from '../interfaces/user.interface';
 
 @Component({
   selector: 'app-toolbar',
@@ -23,6 +25,7 @@ import { log } from 'util';
     TieredMenuModule,
     NgIf,
     AsyncPipe,
+    ImageModule,
   ],
   templateUrl: './toolbar.component.html',
   styleUrl: './toolbar.component.css',
@@ -38,10 +41,13 @@ export class ToolbarComponent implements OnInit {
   isLoggedOut$: Observable<boolean>;
   items: MenuItem[] | undefined;
 
+  // user$: Observable<IUser>;
+
   ngOnInit(): void {
     this.isAdmin$ = this.authservice.isAdmin$;
     this.isLoggedIn$ = this.authservice.isLoggedIn$;
     this.isLoggedOut$ = this.authservice.isLoggedOut$;
+    // this.user$ = this.authservice.user$;
 
     this.items = [
       {
@@ -60,9 +66,19 @@ export class ToolbarComponent implements OnInit {
         routerLink: '/admin/news',
       },
       {
+        label: 'Opinions',
+        icon: 'pi pi-comments',
+        routerLink: '/admin/opinions',
+      },
+      {
         label: 'Users',
         icon: 'pi pi-user',
         routerLink: '/admin/users',
+      },
+      {
+        label: 'Live Updates',
+        icon: 'pi pi-eye',
+        routerLink: '/admin/live-updates',
       },
     ];
   }

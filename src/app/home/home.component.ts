@@ -5,7 +5,7 @@ import { CarouselComponent } from './carousel/carousel.component';
 import { NewsService } from '../admin/services/news.service';
 import { Observable } from 'rxjs';
 import { INews } from '../shared/interfaces/news.interface';
-import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
+import { AsyncPipe, NgClass, NgForOf, NgIf } from '@angular/common';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { TabViewModule } from 'primeng/tabview';
 import { CategoryService } from '../admin/services/category.service';
@@ -18,9 +18,14 @@ import {
 } from 'primeng/selectbutton';
 import { RegisterComponent } from '../auth/register/register.component';
 import { TableModule } from 'primeng/table';
-import { NewsStore } from '../admin/services/news.store';
 import { SearchToolbarComponent } from './search-toolbar/search-toolbar.component';
 import { map } from 'rxjs/operators';
+import { BreakingNewsComponent } from '../news/breaking-news/breaking-news.component';
+import { MostReadComponent } from '../news/most-read/most-read.component';
+import { SidebarModule } from 'primeng/sidebar';
+import { ButtonModule } from 'primeng/button';
+import { OpinionsComponent } from '../opinions/opinions.component';
+import { LiveUpdatesComponent } from '../live-updates/live-updates.component';
 
 @Component({
   selector: 'app-home',
@@ -40,6 +45,13 @@ import { map } from 'rxjs/operators';
     TableModule,
     SearchToolbarComponent,
     NgIf,
+    BreakingNewsComponent,
+    MostReadComponent,
+    SidebarModule,
+    ButtonModule,
+    OpinionsComponent,
+    LiveUpdatesComponent,
+    NgClass,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
@@ -48,9 +60,9 @@ export class HomeComponent implements OnInit {
   featuredNews$: Observable<INews[]>;
   categories$: Observable<ICategory[]>;
   news$: Observable<INews[]>;
-  mostRead$: Observable<INews[]>;
   searchedNews: INews[] = [];
   isSearching = false;
+  isBreakingNewsExists = false;
 
   constructor(
     private newsService: NewsService,
@@ -62,15 +74,29 @@ export class HomeComponent implements OnInit {
     this.featuredNews$ = this.newsService
       .getAll(true)
       .pipe(map((news) => news.sort((a, b) => -1)));
-    this.mostRead$ = this.newsService.getAll(false, [], 100);
 
     this.news$ = this.newsService
       .getAll()
-      .pipe(map((news) => news.sort((a, b) => -1)));
+      .pipe(
+        map((news) =>
+          news
+            .filter((news) => !news.isBreakingNews && !news.isFeatured)
+            .sort((a, b) => -1),
+        ),
+      );
   }
 
   onSelectBtn($event: SelectButtonChangeEvent) {
-    this.news$ = this.newsService.getAll(false, $event.value);
+    // this.news$ = this.newsService.getAll(false, $event.value);
+    this.news$ = this.newsService
+      .getAll(false, $event.value)
+      .pipe(
+        map((news) =>
+          news
+            .filter((news) => !news.isBreakingNews && !news.isFeatured)
+            .sort((a, b) => -1),
+        ),
+      );
   }
 
   searchedNewsFn($event: INews[]) {
@@ -81,5 +107,9 @@ export class HomeComponent implements OnInit {
   onResetFilterEvent($event: boolean) {
     this.isSearching = false;
     this.searchedNews = [];
+  }
+
+  isBreakingExists($event: boolean) {
+    this.isBreakingNewsExists = $event;
   }
 }

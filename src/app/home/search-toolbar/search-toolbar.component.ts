@@ -16,6 +16,7 @@ import { AsyncPipe, NgIf } from '@angular/common';
 
 import { INews } from '../../shared/interfaces/news.interface';
 import { tap } from 'rxjs/operators';
+import { InputGroupModule } from 'primeng/inputgroup';
 
 @Component({
   selector: 'app-search-toolbar',
@@ -28,6 +29,7 @@ import { tap } from 'rxjs/operators';
     TieredMenuModule,
     NgIf,
     AsyncPipe,
+    InputGroupModule,
   ],
   templateUrl: './search-toolbar.component.html',
   styleUrl: './search-toolbar.component.css',

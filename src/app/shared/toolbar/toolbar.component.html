@@ -1,7 +1,10 @@
 <p-toolbar>
-  <div class="p-toolbar-group-start image-container">
 
+  <div class="logo  p-1 border-round">
+    <h1 routerLink="/" class="cursor-pointer m-0  font-bold" style="letter-spacing: 0.1rem;font-size: 1.4rem">WHITE
+      RABBIT</h1>
   </div>
+
 
   <div class="p-toolbar-group-end">
     <button
@@ -14,22 +17,23 @@
     </button>
 
     <button
-   
+
       type="button"
       pButton
       label="Admin"
       (click)="menu.toggle($event)"
       class="mr-1"
+      *ngIf="(isAdmin$|async)"
+
     ></button>
 
     <p-tieredMenu #menu [model]="items" [popup]="true"></p-tieredMenu>
     <button
       class="mr-1"
-
-      *ngIf="isLoggedOut$|async"
+      *ngIf="!(isLoggedIn$|async)"
       type="button"
       pButton
-      label="Log In"
+      label="Sign in"
       routerLink="/auth/login"
     ></button>
     <button

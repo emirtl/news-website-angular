@@ -1,0 +1,15 @@
+.text-most__read:hover {
+  cursor: pointer;
+  color: darkgray;
+
+}
+
+.text-most__read {
+  font-size: 0.8rem;
+  margin: 0.3rem;
+
+}
+
+.td-text__mostRead {
+  padding: 0.4rem;
+}

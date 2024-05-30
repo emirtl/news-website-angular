@@ -1,0 +1,17 @@
+<div class="grid justify-content-start align-items-center">
+  <div *ngFor="let item of breakingNews$|async"
+       [ngClass]="(breakingNews$|async)?.length<3?'col-12 md:col-6  lg:col-6 ':'col-12 md:col-4 sm:col-4 lg:col-4'">
+    <p-card header="{{item.title}}" subheader="Card Subheader"
+            class="cursor-pointer hover:underline"
+            [style]="{ height: '530px' }"
+
+            [routerLink]="['/news-page',item.id]">
+      <ng-template pTemplate="header">
+        <img *ngIf="item.coverImage" class="img" [src]="item.coverImage" [alt]="item.title" style="max-height: 515px"/>
+      </ng-template>
+      <span *ngIf="item.image" class="bg-black-alpha-90 text-white p-1 font-semibold">Exclusive</span>
+
+    </p-card>
+
+  </div>
+</div>
